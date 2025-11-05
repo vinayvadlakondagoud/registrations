@@ -1,3 +1,4 @@
+// server.js
 const express = require('express');
 const mysql = require('mysql2');
 const path = require('path');
@@ -58,8 +59,8 @@ app.post('/register', (req, res) => {
       console.error('Insert failed:', err);
       res.status(500).send('Error saving data.');
     } else {
-      // FIX 1: Redirect user to the home page after successful registration
-      res.status(200).send('<script>alert("✅ Registration Successful! Check your database (MySQL Workbench)."); window.location.href="/";</script>');
+      // FIX: Use HTTP redirect to go back to the home page
+      res.redirect('/');
     }
   });
 });
