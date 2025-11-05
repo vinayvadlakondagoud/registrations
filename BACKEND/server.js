@@ -10,12 +10,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(__dirname));
 
-// ✅ Connect to MySQL (Railway)
+// ✅ Connect to MySQL (Railway Cloud DB)
 const db = mysql.createConnection({
-  host: process.env.MYSQLHOST || 'mysql.railway.internal', // example host
-  user: process.env.MYSQLUSER || 'root',
-  password: process.env.MYSQLPASSWORD || 'yBTUXbdMJRHcpWQcdRxCRNIMALQcZyko',
-  database: process.env.MYSQLDATABASE || 'railway',
+  host: process.env.MYSQLHOST,     // e.g. "containers-us-west-XX.railway.app"
+  user: process.env.MYSQLUSER,     // e.g. "root"
+  password: process.env.MYSQLPASSWORD,
+  database: process.env.MYSQLDATABASE,
   port: process.env.MYSQLPORT || 3306
 });
 
@@ -24,12 +24,12 @@ db.connect((err) => {
   if (err) {
     console.error('❌ Database connection failed:', err);
   } else {
-    console.log('✅ Connected to MySQL (Railway)');
+    console.log('✅ Connected to MySQL (Railway Cloud DB)');
     createTable();
   }
 });
 
-// Create table if not exists
+// ✅ Create table if not exists
 function createTable() {
   const sql = `
     CREATE TABLE IF NOT EXISTS registrants (
@@ -42,11 +42,11 @@ function createTable() {
   `;
   db.query(sql, (err) => {
     if (err) console.error('Table creation failed:', err);
-    else console.log('Table ready.');
+    else console.log('✅ Table ready in cloud DB.');
   });
 }
 
-// Handle form submission
+// ✅ Handle form submission
 app.post('/register', (req, res) => {
   const { userName, teamName, UID, contactNumber } = req.body;
 
@@ -65,4 +65,4 @@ app.post('/register', (req, res) => {
 });
 
 // Start server
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
