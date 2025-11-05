@@ -8,12 +8,11 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static(__dirname));
 
 // ✅ Connect to MySQL (Railway Cloud DB)
 const db = mysql.createConnection({
-  host: process.env.MYSQLHOST,     // e.g. "containers-us-west-XX.railway.app"
-  user: process.env.MYSQLUSER,     // e.g. "root"
+  host: process.env.MYSQLHOST,
+  user: process.env.MYSQLUSER,
   password: process.env.MYSQLPASSWORD,
   database: process.env.MYSQLDATABASE,
   port: process.env.MYSQLPORT || 3306
@@ -46,6 +45,19 @@ function createTable() {
   });
 }
 
+// ----------------------------------------------------
+// ✅ FIX: ADD THE MISSING GET ROUTE FOR THE HOME PAGE (/)
+// This resolves the "Cannot GET /" error when the server redirects.
+// ----------------------------------------------------
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// Serve static assets (like images, CSS, JS) from the root directory
+// This is needed for your styles and images to load correctly.
+app.use(express.static(path.join(__dirname))); 
+
+
 // ✅ Handle form submission
 app.post('/register', (req, res) => {
   const { userName, teamName, UID, contactNumber } = req.body;
@@ -57,17 +69,14 @@ app.post('/register', (req, res) => {
   db.query(sql, [userName, teamName, UID, contactNumber], (err, result) => {
     if (err) {
       console.error('Insert failed:', err);
-      res.status(500).send('Error saving data.');
+      // If database fails, send the user to the home page with an error flag
+      res.redirect('/?error=db_insert_failed'); 
     } else {
-      // FIX: Use HTTP redirect to go back to the home page
-      res.redirect('/');
+      console.log('✅ Data inserted:', result.insertId);
+      // Use HTTP redirect to go back to the home page (now handled by app.get('/'))
+      res.redirect('/'); 
     }
   });
-});
-
-// FIX: Add the missing GET route for the root path
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // Start server
