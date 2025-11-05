@@ -83,7 +83,7 @@
             <p class="text-xl font-medium text-gray-300 border-b border-gray-700 pb-2">SEASON 6 REGISTRATION</p>
         </header>
 
-<form id="registrationForm" action="https://registrations1.onrender.com/register" method="POST" class="space-y-6">
+        <form id="registrationForm" action="https://registrations1.onrender.com/register" method="POST" class="space-y-6">
             
             <div>
                 <label for="fullName" class="block text-sm font-medium text-gray-300 mb-2">Full Name</label>
@@ -144,14 +144,13 @@
     </div>
     
     <script>
-        // Custom Toast/Notification Function (Replaces alert())
+        // Custom Toast/Notification Function (Remains unchanged)
         function showToast(message, type = 'info') {
             const toast = document.getElementById('toast');
             
             let colorClass = '';
             let iconHtml = '';
 
-            // Using inline SVGs for stability since we are not using the module import for Lucide inside this function
             const iconMap = {
                 success: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle w-5 h-5 mr-2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>',
                 error: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-alert-triangle w-5 h-5 mr-2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>',
@@ -180,8 +179,7 @@
             }, 5000);
         }
 
-        // FIX 3: REMOVED the window.confirmRegistration function entirely 
-        // as the form now submits directly to the server.
+        // FIX: The unnecessary client-side confirmation function has been removed.
         
         // Load Lucide icons on page load
         document.addEventListener('DOMContentLoaded', () => {
