@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BATTLE OF SNIPER - Season 6 Registration</title>
-    <!-- Load Tailwind CSS for professional, modern styling -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Load Lucide icons for aesthetics -->
     <script type="module" src="https://unpkg.com/lucide@latest"></script>
     
     <style>
@@ -15,14 +13,14 @@
     }
 
     .registration-card input {
-  background-color: rgba(0, 0, 0, 0.5);  /* semi-dark input fields */
-  border: 1px solid rgba(0, 255, 255, 0.3);
-}
+      background-color: rgba(0, 0, 0, 0.5);  /* semi-dark input fields */
+      border: 1px solid rgba(0, 255, 255, 0.3);
+    }
 
-.registration-card input:focus {
-  background-color: rgba(0, 0, 0, 0.7);
-  border-color: cyan;
-}
+    .registration-card input:focus {
+      background-color: rgba(0, 0, 0, 0.7);
+      border-color: cyan;
+    }
 
 
     /* ✅ Fixed Background Image Path */
@@ -50,38 +48,34 @@
     }
 
   .game-header {
-  font-size: clamp(2rem, 8vw, 3.5rem);
-  letter-spacing: 2px;
-  color: #00eaff; /* brighter cyan for better visibility */
-  text-shadow: 
-    0 0 6px rgba(0, 255, 255, 0.6),
-    0 0 12px rgba(0, 255, 255, 0.5),
-    0 2px 6px rgba(0, 0, 0, 0.8); /* subtle black shadow for contrast */
-  line-height: 1.1;
-}
+      font-size: clamp(2rem, 8vw, 3.5rem);
+      letter-spacing: 2px;
+      color: #00eaff; /* brighter cyan for better visibility */
+      text-shadow: 
+        0 0 6px rgba(0, 255, 255, 0.6),
+        0 0 12px rgba(0, 255, 255, 0.5),
+        0 2px 6px rgba(0, 0, 0, 0.8); /* subtle black shadow for contrast */
+      line-height: 1.1;
+  }
 
 
     .registration-card {
-  color: #f0f8ff; /* a bit brighter white */
-}
+      color: #f0f8ff; /* a bit brighter white */
+    }
 
-.registration-card {
-  box-shadow: 0 0 25px rgba(0, 255, 255, 0.15);
-}
+    .registration-card {
+      box-shadow: 0 0 25px rgba(0, 255, 255, 0.15);
+    }
 
   </style>
 </head>
 <body class="background-overlay min-h-screen flex items-center justify-center p-4">
 
-    <!-- Custom Toast Notification Element (Replaces alert()) -->
     <div id="toast" class="fixed bottom-5 left-1/2 transform -translate-x-1/2 p-4 rounded-lg shadow-xl text-white flex items-center z-50 transition-all duration-300 opacity-0 invisible pointer-events-none">
-        <!-- Message will be inserted here by showToast() -->
-    </div>
+        </div>
 
-    <!-- Main Registration Card -->
     <div class="registration-card bg-transparent rounded-xl shadow-lg p-6 md:p-10 space-y-8">
         
-        <!-- Header Section -->
         <header class="text-center mb-6">
             <h1 class="game-header font-extrabold text-cyan-400 uppercase">
                 BATTLE OF SNIPER
@@ -89,7 +83,6 @@
             <p class="text-xl font-medium text-gray-300 border-b border-gray-700 pb-2">SEASON 6 REGISTRATION</p>
         </header>
 
-        <!-- Form Section -->
         <form id="registrationForm" action="/register" method="POST" class="space-y-6">
             
             <div>
@@ -123,7 +116,7 @@
                 <label for="contactNumber" class="block text-sm font-medium text-gray-300 mb-2">Contact Number</label>
                 <div class="relative">
                     <i data-lucide="phone" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-cyan-500"></i>
-                    <input type="tel" id="contactNumber" name="contactNumber" inputmode="numeric" pattern="[0-9]{10,}" title="Enter your 10-digit contact number" placeholder="10-digit mobile number for contact" required 
+                    <input type="tel" id="contactNumber" name="contactNumber" inputmode="numeric" pattern="[0-9]{10}" maxlength="10" title="Enter exactly 10 digits" placeholder="10-digit mobile number for contact" required 
                            class="w-full bg-gray-800 text-white border border-gray-700 rounded-lg py-3 pl-10 pr-4 focus:ring-cyan-500 focus:border-cyan-500 transition duration-150 shadow-inner">
                 </div>
             </div>
@@ -136,13 +129,11 @@
             
         </form>
 
-        <!-- WhatsApp Share Info -->
         <section class="mt-8 pt-6 border-t border-gray-700 text-center">
             <p class="text-sm text-gray-400 mb-4">
                 All tournament rules, updates, and schedule changes will be shared in the official WhatsApp group.
             </p>
             
-            <!-- WhatsApp Button -->
             <a href="https://chat.whatsapp.com/BxeGhVzB6M7K7gH2Isd93s?mode=wwt" target="_blank" rel="noopener noreferrer" 
                class="inline-flex items-center justify-center bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full transition duration-300 shadow-md shadow-green-500/50 transform hover:scale-105 active:scale-95">
                 <i data-lucide="message-square" class="w-5 h-5 mr-2 fill-white"></i>
@@ -152,7 +143,6 @@
 
     </div>
     
-    <!-- Client-Side JavaScript for Confirmation and Icons -->
     <script>
         // Custom Toast/Notification Function (Replaces alert())
         function showToast(message, type = 'info') {
@@ -190,26 +180,8 @@
             }, 5000);
         }
 
-        // Client-side confirmation function (since database submission is removed)
-        window.confirmRegistration = function(event) {
-            event.preventDefault();
-            
-            const form = document.getElementById('registrationForm');
-            const submitButton = document.getElementById('submit-btn');
-
-            submitButton.disabled = true;
-            submitButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-loader w-5 h-5 mr-2 animate-spin"><path d="M12 2v4"/><path d="m16.2 16.2 3.4 3.4"/><path d="M2 12h4"/><path d="m4.9 4.9 3.4 3.4"/><path d="M12 22v-4"/><path d="m19.1 19.1-3.4-3.4"/><path d="M22 12h-4"/><path d="m19.1 4.9-3.4 3.4"/></svg> Processing...';
-
-            // Simulate network delay
-            setTimeout(() => {
-                // In a real application, you would send this data to a server here.
-                // Since Firebase was removed, we just confirm locally.
-                showToast("Registration data captured! This form is ready for export.", 'success');
-                form.reset();
-                submitButton.disabled = false;
-                submitButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-send w-5 h-5 mr-2"><path d="m22 2-7 20-4-9-9-4 20-7z"/><path d="M15 15l4-4"/></svg> Confirm Registration';
-            }, 1000);
-        }
+        // FIX 3: REMOVED the window.confirmRegistration function entirely 
+        // as the form now submits directly to the server.
         
         // Load Lucide icons on page load
         document.addEventListener('DOMContentLoaded', () => {
