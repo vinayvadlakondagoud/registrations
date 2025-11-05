@@ -65,5 +65,10 @@ app.post('/register', (req, res) => {
   });
 });
 
+// FIX: Add the missing GET route for the root path
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
 // Start server
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
