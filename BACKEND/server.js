@@ -8,6 +8,7 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+// Remove app.use(express.static(__dirname)); since the frontend is separate
 
 // ✅ Connect to MySQL (Railway Cloud DB)
 const db = mysql.createConnection({
@@ -46,16 +47,10 @@ function createTable() {
 }
 
 // ----------------------------------------------------
-// ✅ FIX: ADD THE MISSING GET ROUTE FOR THE HOME PAGE (/)
-// This resolves the "Cannot GET /" error when the server redirects.
+// !!! IMPORTANT FIXES FOR SEPARATE DEPLOYMENTS !!!
+// 1. We removed the crashing app.get('/') route.
+// 2. We change the redirect to the FRONTEND's ABSOLUTE URL.
 // ----------------------------------------------------
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
-});
-
-// Serve static assets (like images, CSS, JS) from the root directory
-// This is needed for your styles and images to load correctly.
-app.use(express.static(path.join(__dirname))); 
 
 
 // ✅ Handle form submission
@@ -69,12 +64,12 @@ app.post('/register', (req, res) => {
   db.query(sql, [userName, teamName, UID, contactNumber], (err, result) => {
     if (err) {
       console.error('Insert failed:', err);
-      // If database fails, send the user to the home page with an error flag
-      res.redirect('/?error=db_insert_failed'); 
+      // If database fails, send the user back to the frontend with an error flag
+      res.redirect('https://registrations-jiuA.onrender.com/?error=db_insert_failed'); 
     } else {
       console.log('✅ Data inserted:', result.insertId);
-      // Use HTTP redirect to go back to the home page (now handled by app.get('/'))
-      res.redirect('/'); 
+      // FIX: Use HTTP redirect to go back to the FRONTEND'S URL
+      res.redirect('https://registrations-jiuA.onrender.com/?success=true'); 
     }
   });
 });
