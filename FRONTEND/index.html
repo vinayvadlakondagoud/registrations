@@ -90,20 +90,17 @@
         </header>
 
         <!-- Form Section -->
-        <!-- Submitting the form now calls a simple client-side function for confirmation -->
-        <form id="registrationForm" onsubmit="confirmRegistration(event)" class="space-y-6">
+        <form id="registrationForm" action="/register" method="POST" class="space-y-6">
             
-            <!-- Full Name -->
             <div>
                 <label for="fullName" class="block text-sm font-medium text-gray-300 mb-2">Full Name</label>
                 <div class="relative">
                     <i data-lucide="user" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-cyan-500"></i>
-                    <input type="text" id="fullName" name="fullName" placeholder="Your Full Name (e.g., John Doe)" required 
+                    <input type="text" id="fullName" name="userName" placeholder="Your Full Name (e.g., John Doe)" required 
                            class="w-full bg-gray-800 text-white border border-gray-700 rounded-lg py-3 pl-10 pr-4 focus:ring-cyan-500 focus:border-cyan-500 transition duration-150 shadow-inner">
                 </div>
             </div>
             
-            <!-- Team Name -->
             <div>
                 <label for="teamName" class="block text-sm font-medium text-gray-300 mb-2">Team Name</label>
                 <div class="relative">
@@ -113,17 +110,15 @@
                 </div>
             </div>
 
-            <!-- Game ID (UID) -->
             <div>
                 <label for="gameUID" class="block text-sm font-medium text-gray-300 mb-2">Game UID (ID Number)</label>
                 <div class="relative">
                     <i data-lucide="gamepad-2" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-cyan-500"></i>
-                    <input type="tel" id="gameUID" name="gameUID" inputmode="numeric" placeholder="Enter your 8-12 digit Game ID" required 
+                    <input type="tel" id="gameUID" name="UID" inputmode="numeric" placeholder="Enter your 8-12 digit Game ID" required 
                            class="w-full bg-gray-800 text-white border border-gray-700 rounded-lg py-3 pl-10 pr-4 focus:ring-cyan-500 focus:border-cyan-500 transition duration-150 shadow-inner">
                 </div>
             </div>
             
-            <!-- Contact Number -->
             <div>
                 <label for="contactNumber" class="block text-sm font-medium text-gray-300 mb-2">Contact Number</label>
                 <div class="relative">
@@ -133,7 +128,6 @@
                 </div>
             </div>
             
-            <!-- Submission Button -->
             <button type="submit" id="submit-btn" 
                     class="w-full flex items-center justify-center bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3 rounded-xl transition duration-300 uppercase tracking-widest shadow-lg shadow-cyan-500/50 transform hover:scale-[1.01] active:scale-[0.99] disabled:bg-gray-600 disabled:shadow-none disabled:cursor-not-allowed">
                 <i data-lucide="send" class="w-5 h-5 mr-2"></i>
