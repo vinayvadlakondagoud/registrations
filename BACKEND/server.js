@@ -8,7 +8,6 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-// Since the frontend is separate, we remove any static file serving here.
 
 // ✅ Connect to MySQL (Railway Cloud DB)
 const db = mysql.createConnection({
@@ -46,9 +45,6 @@ function createTable() {
   });
 }
 
-// ----------------------------------------------------
-// !!! AJAX FIX: SEND 200 OK STATUS INSTEAD OF REDIRECT !!!
-// ----------------------------------------------------
 
 // ✅ Handle form submission
 app.post('/register', (req, res) => {
@@ -61,11 +57,11 @@ app.post('/register', (req, res) => {
   db.query(sql, [userName, teamName, UID, contactNumber], (err, result) => {
     if (err) {
       console.error('Insert failed:', err);
-      // Send a 500 status on database error, which AJAX will catch as failure
+      // Send a 500 status for database error
       res.status(500).send({ message: "Database insertion failed." }); 
     } else {
       console.log('✅ Data inserted:', result.insertId);
-      // FIX: Send a 200 OK status. This tells the frontend script to show the pop-up and refresh.
+      // FIX: Send a 200 OK status. The frontend AJAX will catch this as success.
       res.status(200).send({ message: "Registration successful" }); 
     }
   });
