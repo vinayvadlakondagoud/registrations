@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-// Remove app.use(express.static(__dirname)); since the frontend is separate
+// Since the frontend is separate, we remove any static file serving here.
 
 // ✅ Connect to MySQL (Railway Cloud DB)
 const db = mysql.createConnection({
@@ -47,11 +47,8 @@ function createTable() {
 }
 
 // ----------------------------------------------------
-// !!! IMPORTANT FIXES FOR SEPARATE DEPLOYMENTS !!!
-// 1. We removed the crashing app.get('/') route.
-// 2. We change the redirect to the FRONTEND's ABSOLUTE URL.
+// !!! AJAX FIX: SEND 200 OK STATUS INSTEAD OF REDIRECT !!!
 // ----------------------------------------------------
-
 
 // ✅ Handle form submission
 app.post('/register', (req, res) => {
@@ -64,12 +61,12 @@ app.post('/register', (req, res) => {
   db.query(sql, [userName, teamName, UID, contactNumber], (err, result) => {
     if (err) {
       console.error('Insert failed:', err);
-      // If database fails, send the user back to the frontend with an error flag
-      res.redirect('https://registrations-jiuA.onrender.com/?error=db_insert_failed'); 
+      // Send a 500 status on database error, which AJAX will catch as failure
+      res.status(500).send({ message: "Database insertion failed." }); 
     } else {
       console.log('✅ Data inserted:', result.insertId);
-      // FIX: Use HTTP redirect to go back to the FRONTEND'S URL
-      res.redirect('https://registrations-jiuA.onrender.com/?success=true'); 
+      // FIX: Send a 200 OK status. This tells the frontend script to show the pop-up and refresh.
+      res.status(200).send({ message: "Registration successful" }); 
     }
   });
 });
