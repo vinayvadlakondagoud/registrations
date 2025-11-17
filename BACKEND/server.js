@@ -10,17 +10,19 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // ✅ Connect to MySQL (Railway Cloud DB)
+// ✅ Connect to TiDB Cloud Serverless
 const db = mysql.createConnection({
-  host: process.env.MYSQLHOST,
-  user: process.env.MYSQLUSER,
+  host: process.env.MYSQLHOST,      // gateway01.ap-northeast-1.prod.aws.tidbcloud.com
+  user: process.env.MYSQLUSER,      // 4R3Z1EYruY6lDAW.root
   password: process.env.MYSQLPASSWORD,
-  database: process.env.MYSQLDATABASE,
-  port: process.env.MYSQLPORT || 4000,
+  database: process.env.MYSQLDATABASE, // test
+  port: 4000,                       // TiDB fixed port
   ssl: {
-    minVersion: 'TLSv1.2',
+    minVersion: "TLSv1.2",
     rejectUnauthorized: true
   }
 });
+
 
 
 // Check connection
